@@ -18,8 +18,20 @@ const useTransactions = (title) => {
 
   const filteredCategories = categories.filter((sc) => sc.amount > 0);
 
+  for(var i in transactions){
+    if(transactions[i].type==='Income')
+    continue;
+    transactions[i].source="Salary";
+    transactions[i].target=transactions[i].category;
+    transactions[i].weight=transactions[i].amount;
+   }
+  
   const chartData = {
+    datasets1:transactions,
     datasets: [{
+      source:" Salary",
+      target:`"${expenseCategories.type}"`,
+      weight:10,
       data: filteredCategories.map((c) => c.amount),
       backgroundColor: filteredCategories.map((c) => c.color),
     }],
